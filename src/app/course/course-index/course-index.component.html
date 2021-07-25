@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <title>Course LIst</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<!-- <div class="mx-5 my-2">
+    <div th:if="${mostEnrolled.isPresent()}">
+        <p>The most enrolled course is: <span th:text="${mostEnrolled.get().getName()}"></span>
+            (id:<span th:text="${mostEnrolled.get().getCid()}"></span>)</p>
+    </div>
+</div> -->
+<div class="mx-5 my-2">
+    <a class="btn btn-primary" routerLink='/course/add'>
+        Add Course
+    </a>
+</div>
+<div class="mx-5">
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+</div>
+<div class="table-responsive mx-5 mt-0 mb-3">
+    <table class="table table-striped table-hover table-bordered ">
+        <thead class="table-light">
+        <tr class="text-center">
+            <th scope="row" class="col-3">Name</th>
+            <th scope="row" class="col-2">Course ID</th>
+            <th scope="row" class="col-3">Start Date</th>
+            <th scope="row"class="col-3">End Date</th>
+            <th class="col-1">Action</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        <tr *ngFor="let course of courses">
+            <th scope="row">{{ course.name }}</th>
+            <td>{{ course.cid }}</td>
+            <td>{{ course.startDate }}</td>
+            <td>{{ course.endDate }}</td>
+            <td class="text-center">
+                <a class="btn btn-primary my-1" [routerLink]="['/course/detail', course.cid]" routerLinkActive="active">Detail</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+
+</body>
+
+</html>
