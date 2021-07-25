@@ -11,12 +11,12 @@
 
 <body>
 
-<!-- <div class="mx-5 my-2">
-    <div th:if="${mostEnrolled.isPresent()}">
-        <p>The most enrolled course is: <span th:text="${mostEnrolled.get().getName()}"></span>
-            (id:<span th:text="${mostEnrolled.get().getCid()}"></span>)</p>
+<div class="mx-5 my-2">
+    <div *ngIf="mostEnrolled">
+        <p>The most enrolled course is: <span>{{mostEnrolled.name}}</span>
+            (id:<span>{{mostEnrolled.cid}}</span>)</p>
     </div>
-</div> -->
+</div>
 <div class="mx-5 my-2">
     <a class="btn btn-primary" routerLink='/course/add'>
         Add Course

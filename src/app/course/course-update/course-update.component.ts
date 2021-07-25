@@ -17,7 +17,6 @@ export class CourseUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.course = this._courseData.courseData;
-    console.log(this.course);
   }
 
   onSubmit() {

@@ -10,9 +10,12 @@ import { CourseService } from 'src/app/service/course.service';
 export class CourseIndexComponent implements OnInit {
   courses: Course[];
   // res: string;
+  mostEnrolled: Course;
+
   constructor(private _courseService: CourseService, private _http: HttpClient) { }
 
   ngOnInit(): void {
     this._courseService.getCourses().subscribe(data => this.courses = data);
+    this._courseService.getMostEnrolled().subscribe(data => this.mostEnrolled = data);
   }
 }

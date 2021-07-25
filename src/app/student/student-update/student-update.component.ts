@@ -17,7 +17,6 @@ export class StudentUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.student = this._studentData.studentData;
-    console.log(this.student);
   }
 
   onSubmit() {

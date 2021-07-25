@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { Student } from '../model/student';
 import { catchError, map } from "rxjs/operators"; 
+import { Course } from '../model/course';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,17 @@ export class StudentService {
   }
 
   getStudents(): Observable<Student[]> {
-    console.log("obs subbed");
     let url: string = "http://localhost:8080/students";
       return this._http.get<Student[]>(url)
       .pipe(map((result:any)=>result._embedded.students));
+  }
+
+  getEnroll(sid: number): Observable<Course[]> {
+    let url: string = "http://localhost:8080/students/" + sid + "/enroll";
+      return this._http.get<Course[]>(url)
+      .pipe(map((result:any)=>{
+        return result._embedded.courses;
+      }));
   }
 
   addStudent(student: Student) {

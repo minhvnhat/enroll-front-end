@@ -27,7 +27,7 @@
     </form>
 </div>
 
-<!-- <div class="table-responsive mx-5 mt-0 mb-3">
+<div class="table-responsive mx-5 my-3">
     <table class="table table-striped table-hover table-bordered ">
         <thead class="table-light">
         <tr class="text-center">
@@ -39,18 +39,18 @@
         </tr>
         </thead>
         <tbody id="myTable">
-        <tr th:each="course: ${studentProfile.enroll}">
-            <th scope="row" ="${course.name}"></th>
-            <td th:text="${course.cid}"></td>
-            <td th:text="${course.startDate}"></td>
-            <td th:text="${course.endDate}"></td>
+        <tr *ngFor="let course of enroll">
+            <th scope="row">{{course.name}}</th>
+            <td >{{course.cid}}</td>
+            <td >{{course.startDate}}</td>
+            <td >{{course.endDate}}</td>
             <td class="text-center">
-                <a class="btn btn-primary my-1" th:href="@{'/course/{cid}'(cid=${course.cid})}">Detail</a>
+                <a class="btn btn-primary my-1" [routerLink]="['/course/detail', course.cid]">Detail</a>
             </td>
         </tr>
         </tbody>
     </table>
-</div>  -->
+</div> 
 
 </body>
 

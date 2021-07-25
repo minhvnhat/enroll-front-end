@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from 'src/app/model/course';
+import { EnrollForm } from 'src/app/model/enroll-form';
+import { Student } from 'src/app/model/student';
 import { CourseDataService } from 'src/app/service/course-data.service';
 import { CourseService } from 'src/app/service/course.service';
 
@@ -11,6 +13,13 @@ import { CourseService } from 'src/app/service/course.service';
 export class CourseDetailComponent implements OnInit {
   cid: number;
   course: Course;
+  studentEnrolled: Array<Student>;
+  errorMsg: string;
+
+  enrollForm: EnrollForm = {
+    sid: null,
+    op: null
+  };
 
   constructor(private _route: ActivatedRoute,
      private _courseService: CourseService,
@@ -22,7 +31,8 @@ export class CourseDetailComponent implements OnInit {
     this.cid = Number(routeParams.get('id'));
 
     this._courseService.getCourseById(this.cid).subscribe(data => this.course = data);
-    console.log(this.course);
+    
+    this._courseService.getEnrollStudents(this.cid).subscribe(data => this.studentEnrolled = data);
   }
 
   ngOnDestroy() {
@@ -31,7 +41,15 @@ export class CourseDetailComponent implements OnInit {
 
   onSubmitDelete() {
     this._courseService.deleteCourse(this.cid).subscribe(data => this._router.navigate(['/course']));
-
   }
 
+  onSubmitEnroll() {
+    this._courseService.enrollStudent(this.enrollForm, this.cid).subscribe(
+      data => {
+        console.log("success!" + data);
+        window.location.reload();
+      },
+      error => this.errorMsg = error.status
+    );;
+  }
 }

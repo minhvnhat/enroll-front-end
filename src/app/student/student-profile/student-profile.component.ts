@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Course } from 'src/app/model/course';
 import { Student } from 'src/app/model/student';
 import { StudentDataService } from 'src/app/service/student-data.service';
 import { StudentService } from 'src/app/service/student.service';
@@ -12,6 +13,7 @@ import { StudentService } from 'src/app/service/student.service';
 export class StudentProfileComponent implements OnInit {
   sid: number;
   student: Student;
+  enroll: Array<Course>;
 
   constructor(private _route: ActivatedRoute,
      private _studentService: StudentService,
@@ -23,7 +25,9 @@ export class StudentProfileComponent implements OnInit {
     this.sid = Number(routeParams.get('id'));
 
     this._studentService.getStudentById(this.sid).subscribe(data => this.student = data);
-    console.log(this.student);
+
+    this._studentService.getEnroll(this.sid).subscribe(data => {this.enroll = data;});
+    
   }
 
   ngOnDestroy() {
@@ -32,7 +36,6 @@ export class StudentProfileComponent implements OnInit {
 
   onSubmitDelete() {
     this._studentService.deleteStudent(this.sid).subscribe(data => this._router.navigate(['/student']));
-
   }
 
 }
