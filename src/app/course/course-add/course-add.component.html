@@ -14,32 +14,40 @@
     <div class="alert alert-danger" *ngIf="errorMsg">
         {{errorMsg}}
     </div>
-    <div class="m-5" align="center">
-        <form #courseForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="my-5 mx-auto col-md-6">
+        <form #courseForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
 
-            <div class="form-group row w-50">
+            <div class="form-group row mb-4">
                 <label for="name" class="col-md-3 col-form-label">Name</label>
                 <div class="col-md-9">
                     <input type="text" class="form-control" [(ngModel)]="course.name" name="course.name"
-                           id="name" placeholder="Course name"/><br>
+                           id="name" placeholder="Course name" #name="ngModel"
+                           [class.is-invalid]="name.invalid && name.touched" required/>
+                    <small class="text-danger" [class.d-none]="name.valid || name.untouched">Name is required</small>
                 </div>
             </div>
-            <div class="form-group row w-50">
+            <div class="form-group row mb-4">
                 <label for="startDate" class="col-md-3 col-form-label">Start Date</label>
                 <div class="col-md-9">
                     <input type="date" class="form-control" [(ngModel)]="course.startDate" name="course.startDate"
-                           id="startDate" placeholder="dd-mm-yyyy"/><br>
+                           id="startDate" placeholder="dd-mm-yyyy" #std="ngModel"
+                           [class.is-invalid]="std.invalid && std.touched" required/>
+                    <small class="text-danger" [class.d-none]="std.valid || std.untouched">Start Date is required</small>
                 </div>
             </div>
-            <div class="form-group row w-50">
-                <label for="endDate" class="col-md-3">End Date</label>
+            <div class="form-group row mb-4">
+                <label for="endDate" class="col-md-3 col-form-label">End Date</label>
                 <div class="col-md-9">
                     <input type="date" class="form-control" [(ngModel)]="course.endDate" name="course.endDate"
-                           id="endDate" placeholder="dd-mm-yyyy"/><br>
+                           id="endDate" placeholder="dd-mm-yyyy" #ed="ngModel"
+                           [class.is-invalid]="ed.invalid && ed.touched" required/>
+                    <small class="text-danger" [class.d-none]="ed.valid || ed.untouched">End Date is required</small>
                 </div>
             </div>
 
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <div class="text-center">
+                <button [disabled]="courseForm.form.invalid" class="btn btn-primary" type="submit">Submit</button>
+            </div>
         </form>
 
     </div>
